@@ -20,6 +20,7 @@ const styles = StyleSheet.create({
         paddingTop: 10,
         justifyContent: 'space-between',
         alignItems: 'center',
+        marginBottom: 20,
     },
     input: {
         width: '70%',
