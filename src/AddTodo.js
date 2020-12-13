@@ -22,6 +22,12 @@ export const AddTodo = ({ onSubmit }) => {
                 // the short variant bottom - for onChangeText because of one argument (text)
                 onChangeText={setTodoText}
                 value={todoText}
+                // correct the syntax of the input words
+                autoCorrect={true}
+                // manage the capital letters
+                autoCapitalize='none'
+                // type of keyboard
+                keyboardType='default'
             />
             <Button title="Add" style={styles.button} onPress={pressButton} />
         </View>
@@ -37,7 +43,7 @@ const styles = StyleSheet.create({
         marginBottom: 20,
     },
     input: {
-        width: '70%',
+        width: '80%',
         padding: 5,
         borderStyle: 'solid',
         borderBottomColor: '#9e7a7a',

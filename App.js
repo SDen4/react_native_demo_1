@@ -19,7 +19,7 @@ export default function App() {
 
     return (
         <View>
-            <Navbar title="Todo App" />
+            <Navbar title="Todo App!" />
             <View style={styles.container}>
                 <AddTodo onSubmit={addTodo} />
                 <View>
