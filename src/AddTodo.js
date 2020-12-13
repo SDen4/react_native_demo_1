@@ -1,11 +1,15 @@
 import React from 'react';
 import { View, StyleSheet, TextInput, Button } from 'react-native';
 
-export const AddTodo = () => {
+export const AddTodo = ( {onSubmit} ) => {
+    const pressButton = () => {
+        onSubmit('test todo');
+    };
+
     return (
         <View style={styles.container}>
-            <TextInput style={styles.input}/>
-            <Button title='Add' style={styles.button} />
+            <TextInput style={styles.input} />
+            <Button title="Add" style={styles.button} onPress={pressButton} />
         </View>
     );
 };
@@ -24,5 +28,5 @@ const styles = StyleSheet.create({
         borderBottomColor: '#9e7a7a',
         borderBottomWidth: 2,
     },
-    button: {}
+    button: {},
 });
