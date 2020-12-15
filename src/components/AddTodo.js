@@ -17,7 +17,7 @@ export const AddTodo = ({ onSubmit }) => {
         <View style={styles.container}>
             <TextInput
                 style={styles.input}
-                placeholder="type here new task"
+                placeholder='type here new task'
                 // onChangeText={text => setTodoText(text)}
                 // the short variant bottom - for onChangeText because of one argument (text)
                 onChangeText={setTodoText}
@@ -29,7 +29,7 @@ export const AddTodo = ({ onSubmit }) => {
                 // type of keyboard
                 keyboardType='default'
             />
-            <Button title="Add" style={styles.button} onPress={pressButton} />
+            <Button title='Add' color='#9e7a7a' onPress={pressButton} />
         </View>
     );
 };
@@ -48,6 +48,5 @@ const styles = StyleSheet.create({
         borderStyle: 'solid',
         borderBottomColor: '#9e7a7a',
         borderBottomWidth: 2,
-    },
-    button: {},
+    }
 });
