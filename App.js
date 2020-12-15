@@ -40,7 +40,7 @@ export default function App() {
       }
 
     return (
-        <View style={styles.main}>
+        <View>
             <Navbar title="Todo App" />
             <View style={styles.container}>{content}</View>
         </View>
@@ -48,9 +48,6 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-    main: {
-        // flex: 1,
-    },
     container: {
         paddingHorizontal: 10,
         paddingVertical: 10,
