@@ -6,7 +6,7 @@ import { AppCard } from '../ui/AppCard';
 export const TodoScreen = ({ goBack, todo }) => {
     return (
         <View>
-            <AppCard>
+            <AppCard style={styles.fromParent}>
                 <Text style={styles.title}>{todo.title}</Text>
                 <Button title='Edit'/>
             </AppCard>
@@ -36,5 +36,8 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 20
+    },
+    fromParent: {
+        marginBottom: 20,
     }
 });
