@@ -36,7 +36,7 @@ export default function App() {
                     text: 'Delete', 
                     style: 'destructive',
                     onPress: () => {
-                        setTodoId(null);
+                        setTodoId(null); // return to main screen after deletion & to prevent the error of title 
                         setTodos((prev) => prev.filter((item) => item.id !== id));
                     }
                 },
