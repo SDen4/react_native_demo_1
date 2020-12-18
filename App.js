@@ -21,8 +21,19 @@ export default function App() {
         ]);
     };
 
+    const updateTodo = (id, title) => {
+        setTodos((oldState) =>
+            oldState.map((item) => {
+                if (item.id === id) {
+                    item.title = title;
+                }
+                return item;
+            })
+        );
+    };
+
     const removeTodo = (id) => {
-        const deleteTitle = todos.find( item => item.id === id)
+        const deleteTitle = todos.find((item) => item.id === id);
         //Alert - works on both Android and iOS
         Alert.alert(
             'Delete task',
@@ -33,12 +44,12 @@ export default function App() {
                     style: 'cancel',
                 },
                 {
-                    text: 'Delete', 
+                    text: 'Delete',
                     style: 'destructive',
                     onPress: () => {
-                        setTodoId(null); // return to main screen after deletion & to prevent the error of title 
+                        setTodoId(null); // return to main screen after deletion & to prevent the error of title
                         setTodos((prev) => prev.filter((item) => item.id !== id));
-                    }
+                    },
                 },
             ],
             { cancelable: false }
@@ -51,7 +62,14 @@ export default function App() {
 
     if (todoId) {
         const selectedTodo = todos.find((todo) => todo.id === todoId);
-        content = <TodoScreen onRemove={removeTodo} goBack={() => setTodoId(null)} todo={selectedTodo} />;
+        content = (
+            <TodoScreen
+                onRemove={removeTodo}
+                goBack={() => setTodoId(null)}
+                todo={selectedTodo}
+                onSave={updateTodo}
+            />
+        );
     }
 
     return (

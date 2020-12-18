@@ -1,23 +1,38 @@
-import React from 'react';
-import { View, StyleSheet, TextInput, Button, Modal } from 'react-native';
+import React, { useState } from 'react';
+import { View, StyleSheet, TextInput, Button, Modal, Alert } from 'react-native';
 import { THEME } from '../theme';
 
-export const EditModal = ({ visible, onCancel }) => {
+export const EditModal = ({ value, visible, onCancel, onSave }) => {
+    const [editedTitle, setEditedTitle] = useState(value);
+
+    const saveHandler = () => {
+        if (editedTitle.trim().length < 3) {
+            Alert.alert(
+                'Error!',
+                `Minimum task's lenght couldn't be less than 3 lettets. Now length is ${editedTitle.trim().length} letter(s)`
+            );
+        } else {
+            onSave(editedTitle);
+        }
+    };
+
     return (
-        <Modal visible={visible} animationType='slide'>
+        <Modal visible={visible} animationType="slide">
             <View style={styles.wrapper}>
                 <TextInput
+                    value={editedTitle}
+                    onChangeText={setEditedTitle}
                     style={styles.input}
-                    autoCapitalize='none'
+                    autoCapitalize="none"
                     autoCorrect={false}
                     maxLength={64}
                 />
                 <View style={styles.buttons}>
                     <View style={styles.buttons__wrapper}>
-                        <Button title='Cancel' onPress={onCancel} color={THEME.DANGER_COLOR} />
+                        <Button title="Cancel" onPress={onCancel} color={THEME.DANGER_COLOR} />
                     </View>
                     <View style={styles.buttons__wrapper}>
-                        <Button title='Save' color={THEME.MAIN_COLOR} />
+                        <Button title="Save" color={THEME.MAIN_COLOR} onPress={saveHandler} />
                     </View>
                 </View>
             </View>
