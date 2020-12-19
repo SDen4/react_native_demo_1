@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, Button } from 'react-native';
+import { StyleSheet, View, Button } from 'react-native';
 import { THEME } from '../theme';
 import { AppCard } from '../components/ui/AppCard';
 import { EditModal } from '../components/EditModal';
+import { AppTextBold } from '../components/ui/AppTextBold';
 
 export const TodoScreen = ({ goBack, todo, onRemove, onSave }) => {
     //open or close modal for edit task
@@ -22,7 +23,7 @@ export const TodoScreen = ({ goBack, todo, onRemove, onSave }) => {
                 onSave={saveHandler}
             />
             <AppCard style={styles.fromParent}>
-                <Text style={styles.title}>{todo.title}</Text>
+                <AppTextBold style={styles.title}>{todo.title}</AppTextBold>
                 <Button title="Edit" onPress={() => setModal(true)} />
             </AppCard>
             <View style={styles.buttons}>
