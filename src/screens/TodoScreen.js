@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Dimensions, StyleSheet, View } from 'react-native';
 import { FontAwesome, AntDesign } from '@expo/vector-icons';
 
 import { THEME } from '../theme';
@@ -56,7 +56,11 @@ export const TodoScreen = ({ goBack, todo, onRemove, onSave }) => {
 
 const styles = StyleSheet.create({
     button: {
-        width: '40%',
+        // width: '40%',
+        //width = 1/3 of window
+        // width: Dimensions.get('window').width / 3,
+        //conditions
+        width: Dimensions.get('window').width > 400 ? 175 : 100
     },
     buttons: {
         flexDirection: 'row',
