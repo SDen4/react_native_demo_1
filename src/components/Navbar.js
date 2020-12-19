@@ -1,11 +1,19 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Platform } from 'react-native';
 import { THEME } from '../theme';
 import { AppText } from './ui/AppText';
 
-export const Navbar = props => {
+export const Navbar = (props) => {
     return (
-        <View style={styles.navbar}>
+        <View
+            style={{
+                ...styles.navbar,
+                ...Platform.select({
+                    ios: styles.navbarIos,
+                    android: styles.navbarAndroid,
+                }),
+            }}
+        >
             <AppText style={styles.text}>{props.title}</AppText>
         </View>
     );
@@ -16,11 +24,19 @@ const styles = StyleSheet.create({
         height: 70,
         alignItems: 'center',
         justifyContent: 'flex-end',
-        backgroundColor: THEME.MAIN_COLOR,
         paddingBottom: 10,
     },
+    navbarAndroid: {
+        backgroundColor: THEME.MAIN_COLOR,
+    },
+    navbarIos: {
+        borderBottomColor: THEME.MAIN_COLOR,
+        borderBottomWidth: 1,
+    },
     text: {
-        color: THEME.TEXT_COLOR_WHITE,
+        // example of choosing params in case of platform directly
+        color: Platform.OS === 'android' ? THEME.TEXT_COLOR_WHITE : 'red',
+        // color: THEME.TEXT_COLOR_WHITE,
         fontSize: 24,
     },
 });
