@@ -1,7 +1,16 @@
 import React, { useReducer, useContext } from 'react';
 import { Alert } from 'react-native';
 import { ScreenContext } from '../screen/screenContext';
-import { ADD_TODO, REMOVE_TODO, UPDATE_TODO, SHOW_LOADER, HIDE_LOADER, SHOW_ERROR, CLEAR_ERROR } from '../types';
+import {
+    ADD_TODO,
+    REMOVE_TODO,
+    UPDATE_TODO,
+    SHOW_LOADER,
+    HIDE_LOADER,
+    SHOW_ERROR,
+    CLEAR_ERROR,
+    FETCH_TODOS,
+} from '../types';
 import { TodoContext } from './todoContext';
 import { todoReducer } from './todoReducer';
 
@@ -16,15 +25,32 @@ export const TodoState = ({ children }) => {
     const [state, dispatch] = useReducer(todoReducer, initialState);
 
     const addTodo = async (title) => {
-        const response = await fetch('https://react-native-todo-app-6842e-default-rtdb.firebaseio.com/todos.json', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({ title })
-        });
+        const response = await fetch(
+            'https://react-native-todo-app-6842e-default-rtdb.firebaseio.com/todos.json',
+            {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ title }),
+            }
+        );
         const data = await response.json();
         console.log('ID', data.name);
         dispatch({ type: ADD_TODO, title, id: data.name });
-    }
+    };
+
+    const fetchTodos = async () => {
+        const response = await fetch(
+            'https://react-native-todo-app-6842e-default-rtdb.firebaseio.com/todos.json',
+            {
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json' },
+            }
+        );
+        const data = await response.json();
+        console.log('Fetch', data);
+        const todos = Object.keys(data).map(key => ({...data[key], id: key}));
+        dispatch({type: FETCH_TODOS, todos});
+    };
 
     const removeTodo = (id) => {
         const todo = state.todos.find((item) => item.id === id);
@@ -50,17 +76,26 @@ export const TodoState = ({ children }) => {
     };
     const updateTodo = (id, title) => dispatch({ type: UPDATE_TODO, id, title });
 
-    const showLoader = () => dispatch({type: SHOW_LOADER});
+    const showLoader = () => dispatch({ type: SHOW_LOADER });
 
-    const hideLoader = () => dispatch({type: HIDE_LOADER});
+    const hideLoader = () => dispatch({ type: HIDE_LOADER });
 
-    const showError = error => dispatch({type: SHOW_ERROR, error});
+    const showError = (error) => dispatch({ type: SHOW_ERROR, error });
 
-    const clearError = () => dispatch({type: CLEAR_ERROR});
-
+    const clearError = () => dispatch({ type: CLEAR_ERROR });
 
     return (
-        <TodoContext.Provider value={{ todos: state.todos, addTodo, removeTodo, updateTodo }}>
+        <TodoContext.Provider
+            value={{
+                todos: state.todos,
+                loading: state.loading,
+                error: state.error,
+                addTodo,
+                removeTodo,
+                updateTodo,
+                fetchTodos,
+            }}
+        >
             {children}
         </TodoContext.Provider>
     );
