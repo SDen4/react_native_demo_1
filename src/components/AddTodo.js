@@ -7,7 +7,7 @@ export const AddTodo = ({ onSubmit }) => {
     const [todoText, setTodoText] = useState('');
 
     const pressButton = () => {
-        if (todoText.trim()) {
+        if (todoText.trim().length > 2) {
             onSubmit(todoText);
             setTodoText('');
             Keyboard.dismiss()

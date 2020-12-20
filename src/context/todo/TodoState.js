@@ -1,4 +1,5 @@
 import React, { useReducer, useContext } from 'react';
+import { Alert } from 'react-native';
 import { ScreenContext } from '../screen/screenContext';
 import { ADD_TODO, REMOVE_TODO, UPDATE_TODO } from '../types';
 import { TodoContext } from './todoContext';
@@ -13,10 +14,30 @@ export const TodoState = ({ children }) => {
     const [state, dispatch] = useReducer(todoReducer, initialState);
 
     const addTodo = (title) => dispatch({ type: ADD_TODO, title: title });
+
     const removeTodo = (id) => {
-        changeScreen(null);
-        dispatch({ type: REMOVE_TODO, id });
-    }
+        const todo = state.todos.find((item) => item.id === id);
+        //Alert - works on both Android and iOS
+        Alert.alert(
+            'Delete task',
+            `Are you sure to delete "${todo.title}"?`,
+            [
+                {
+                    text: 'Cancel',
+                    style: 'cancel',
+                },
+                {
+                    text: 'Delete',
+                    style: 'destructive',
+                    onPress: () => {
+                        changeScreen(null);
+                        dispatch({ type: REMOVE_TODO, id });
+                    },
+                },
+            ],
+            { cancelable: false }
+        );
+    };
     const updateTodo = (id, title) => dispatch({ type: UPDATE_TODO, id, title });
 
     return (
