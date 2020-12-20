@@ -7,7 +7,6 @@ import { TodoScreen } from './screens/TodoScreen';
 import { ScreenContext } from './context/screen/screenContext';
 
 export const MainLayout = () => {
-    // const { todos, addTodo, removeTodo, updateTodo } = useContext(TodoContext);
     const { todoId } = useContext(ScreenContext);
 
     return (

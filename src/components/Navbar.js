@@ -34,9 +34,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
     },
     text: {
-        // example of choosing params in case of platform directly
         color: Platform.OS === 'android' ? THEME.TEXT_COLOR_WHITE : 'red',
-        // color: THEME.TEXT_COLOR_WHITE,
         fontSize: 24,
     },
 });

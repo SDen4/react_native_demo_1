@@ -11,12 +11,11 @@ import { TodoContext } from '../context/todo/todoContext';
 import { ScreenContext } from '../context/screen/screenContext';
 
 export const TodoScreen = () => {
-    const {todos, updateTodo, removeTodo} = useContext(TodoContext);
-    const {todoId, changeScreen} = useContext(ScreenContext);
+    const { todos, updateTodo, removeTodo } = useContext(TodoContext);
+    const { todoId, changeScreen } = useContext(ScreenContext);
 
-    const todo = todos.find(item => item.id === todoId);
+    const todo = todos.find((item) => item.id === todoId);
 
-    //open or close modal for edit task
     const [modal, setModal] = useState(false);
 
     const saveHandler = (title) => {
@@ -34,24 +33,17 @@ export const TodoScreen = () => {
             />
             <AppCard style={styles.fromParent}>
                 <AppTextBold style={styles.title}>{todo.title}</AppTextBold>
-                {/* <Button title="Edit" onPress={() => setModal(true)} /> */}
                 <AppButton onPress={() => setModal(true)}>
                     <FontAwesome name='edit' size={20} />
                 </AppButton>
             </AppCard>
             <View style={styles.buttons}>
                 <View style={styles.button}>
-                    {/* <Button color={THEME.MAIN_COLOR} title="Back" onPress={goBack} /> */}
                     <AppButton color={THEME.MAIN_COLOR} onPress={() => changeScreen(null)}>
                         <AntDesign name='back' size={20} color='#fff' />
                     </AppButton>
                 </View>
                 <View style={styles.button}>
-                    {/* <Button
-                        color={THEME.DANGER_COLOR}
-                        title="Delete"
-                        onPress={() => onRemove(todo.id)}
-                    /> */}
                     <AppButton color={THEME.DANGER_COLOR} onPress={() => removeTodo(todo.id)}>
                         <FontAwesome name='remove' size={20} color='#fff' />
                     </AppButton>
@@ -63,11 +55,7 @@ export const TodoScreen = () => {
 
 const styles = StyleSheet.create({
     button: {
-        // width: '40%',
-        //width = 1/3 of window
-        // width: Dimensions.get('window').width / 3,
-        //conditions
-        width: Dimensions.get('window').width > 400 ? 175 : 100
+        width: Dimensions.get('window').width > 400 ? 175 : 100,
     },
     buttons: {
         flexDirection: 'row',

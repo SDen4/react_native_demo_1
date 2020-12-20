@@ -17,10 +17,9 @@ export const TodoState = ({ children }) => {
 
     const removeTodo = (id) => {
         const todo = state.todos.find((item) => item.id === id);
-        //Alert - works on both Android and iOS
         Alert.alert(
             'Delete task',
-            `Are you sure to delete "${todo.title}"?`,
+            `Are you sure to delete '${todo.title}'?`,
             [
                 {
                     text: 'Cancel',

@@ -15,7 +15,7 @@ const handlers = {
         ...state,
         todos: state.todos.filter((item) => item.id !== id),
     }),
-    [UPDATE_TODO]: (state, {title, id}) => ({
+    [UPDATE_TODO]: (state, { title, id }) => ({
         ...state,
         todos: state.todos.map((item) => {
             if (item.id === id) {
@@ -24,7 +24,7 @@ const handlers = {
             return item;
         }),
     }),
-    DEFAULT: state => state
+    DEFAULT: (state) => state,
 };
 
 export const todoReducer = (state, action) => {

@@ -10,7 +10,7 @@ export const AddTodo = ({ onSubmit }) => {
         if (todoText.trim().length > 2) {
             onSubmit(todoText);
             setTodoText('');
-            Keyboard.dismiss()
+            Keyboard.dismiss();
         } else {
             Alert.alert('A new task can not be empty!');
         }
@@ -20,22 +20,16 @@ export const AddTodo = ({ onSubmit }) => {
         <View style={styles.container}>
             <TextInput
                 style={styles.input}
-                placeholder="type here new task"
-                // onChangeText={text => setTodoText(text)}
-                // the short variant bottom - for onChangeText because of one argument (text)
+                placeholder='type here new task'
                 onChangeText={setTodoText}
                 value={todoText}
-                // correct the syntax of the input words
                 autoCorrect={true}
-                // manage the capital letters
-                autoCapitalize="none"
-                // type of keyboard
-                keyboardType="default"
+                autoCapitalize='none'
+                keyboardType='default'
             />
             <AntDesign.Button onPress={pressButton} name='pluscircleo'>
                 Add
             </AntDesign.Button>
-            {/* <Button title="Add" color="#9e7a7a" onPress={pressButton} /> */}
         </View>
     );
 };

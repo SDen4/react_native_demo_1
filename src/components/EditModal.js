@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, TextInput, Button, Modal, Alert } from 'react-native';
+import { View, StyleSheet, TextInput, Modal, Alert } from 'react-native';
 import { THEME } from '../theme';
 import { AppButton } from './ui/AppButton';
 
@@ -22,31 +22,27 @@ export const EditModal = ({ value, visible, onCancel, onSave }) => {
     const cancelHandler = () => {
         setEditedTitle(value);
         onCancel();
-    }
+    };
 
     return (
-        <Modal visible={visible} animationType="slide">
+        <Modal visible={visible} animationType='slide'>
             <View style={styles.wrapper}>
                 <TextInput
                     value={editedTitle}
                     onChangeText={setEditedTitle}
                     style={styles.input}
-                    autoCapitalize="none"
+                    autoCapitalize='none'
                     autoCorrect={false}
                     maxLength={64}
                 />
                 <View style={styles.buttons}>
                     <View style={styles.buttons__wrapper}>
-                        {/* <Button title="Cancel" onPress={onCancel} color={THEME.DANGER_COLOR} /> */}
                         <AppButton color={THEME.DANGER_COLOR} onPress={cancelHandler}>
                             Cancel
                         </AppButton>
                     </View>
                     <View style={styles.buttons__wrapper}>
-                        {/* <Button title="Save" color={THEME.MAIN_COLOR} onPress={saveHandler} /> */}
-                        <AppButton onPress={saveHandler}>
-                            Save
-                        </AppButton>
+                        <AppButton onPress={saveHandler}>Save</AppButton>
                     </View>
                 </View>
             </View>
