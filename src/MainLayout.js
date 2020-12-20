@@ -7,57 +7,57 @@ import { TodoScreen } from './screens/TodoScreen';
 import { TodoContext } from './context/todo/todoContext';
 
 export const MainLayout = () => {
-    const todoContext = useContext(TodoContext);
+    const { todos, addTodo, removeTodo, updateTodo } = useContext(TodoContext);
     const [todoId, setTodoId] = useState(null);
-    const [todos, setTodos] = useState([]);
+    // const [todos, setTodos] = useState([]);
 
-    const addTodo = (title) => {
-        setTodos((prev) => [
-            ...prev,
-            {
-                id: Date.now().toString(),
-                title,
-            },
-        ]);
-    };
+    // const addTodo = (title) => {
+    //     setTodos((prev) => [
+    //         ...prev,
+    //         {
+    //             id: Date.now().toString(),
+    //             title,
+    //         },
+    //     ]);
+    // };
 
-    const updateTodo = (id, title) => {
-        setTodos((oldState) =>
-            oldState.map((item) => {
-                if (item.id === id) {
-                    item.title = title;
-                }
-                return item;
-            })
-        );
-    };
+    // const updateTodo = (id, title) => {
+    //     setTodos((oldState) =>
+    //         oldState.map((item) => {
+    //             if (item.id === id) {
+    //                 item.title = title;
+    //             }
+    //             return item;
+    //         })
+    //     );
+    // };
 
-    const removeTodo = (id) => {
-        const deleteTitle = todos.find((item) => item.id === id);
-        //Alert - works on both Android and iOS
-        Alert.alert(
-            'Delete task',
-            `Are you sure to delete "${deleteTitle.title}"?`,
-            [
-                {
-                    text: 'Cancel',
-                    style: 'cancel',
-                },
-                {
-                    text: 'Delete',
-                    style: 'destructive',
-                    onPress: () => {
-                        setTodoId(null); // return to main screen after deletion & to prevent the error of title
-                        setTodos((prev) => prev.filter((item) => item.id !== id));
-                    },
-                },
-            ],
-            { cancelable: false }
-        );
-    };
+    // const removeTodo = (id) => {
+    //     const deleteTitle = todos.find((item) => item.id === id);
+    //     //Alert - works on both Android and iOS
+    //     Alert.alert(
+    //         'Delete task',
+    //         `Are you sure to delete "${deleteTitle.title}"?`,
+    //         [
+    //             {
+    //                 text: 'Cancel',
+    //                 style: 'cancel',
+    //             },
+    //             {
+    //                 text: 'Delete',
+    //                 style: 'destructive',
+    //                 onPress: () => {
+    //                     setTodoId(null); // return to main screen after deletion & to prevent the error of title
+    //                     setTodos((prev) => prev.filter((item) => item.id !== id));
+    //                 },
+    //             },
+    //         ],
+    //         { cancelable: false }
+    //     );
+    // };
 
     let content = (
-        <MainScreen todos={todoContext.todos} addTodo={addTodo} removeTodo={removeTodo} openTodo={setTodoId} />
+        <MainScreen todos={todos} addTodo={addTodo} removeTodo={removeTodo} openTodo={setTodoId} />
     );
 
     if (todoId) {
