@@ -41,9 +41,7 @@ export const TodoState = ({ children }) => {
     const fetchTodos = async () => {
         showLoader();
         clearError();
-
         try {
-
             const response = await fetch(
                 'https://react-native-todo-app-6842e-default-rtdb.firebaseio.com/todos.json',
                 {
@@ -52,11 +50,10 @@ export const TodoState = ({ children }) => {
                 }
             );
             const data = await response.json();
-            const todos = Object.keys(data).map(key => ({...data[key], id: key}));
-            dispatch({type: FETCH_TODOS, todos});
-    
+            const todos = Object.keys(data).map((key) => ({ ...data[key], id: key }));
+            dispatch({ type: FETCH_TODOS, todos });
         } catch (e) {
-            showError('Something\'s wrong...');
+            showError("Something's wrong...");
             console.log(e);
         } finally {
             hideLoader();
@@ -85,7 +82,21 @@ export const TodoState = ({ children }) => {
             { cancelable: false }
         );
     };
-    const updateTodo = (id, title) => dispatch({ type: UPDATE_TODO, id, title });
+
+    const updateTodo = async (id, title) => {
+        clearError();
+        try {
+            await fetch(`https://react-native-todo-app-6842e-default-rtdb.firebaseio.com/todos/${id}.json`, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ title }),
+            });
+            dispatch({ type: UPDATE_TODO, id, title });
+        } catch(e) {
+            showError("Something's wrong...");
+            console.log(e);
+        }
+    };
 
     const showLoader = () => dispatch({ type: SHOW_LOADER });
 

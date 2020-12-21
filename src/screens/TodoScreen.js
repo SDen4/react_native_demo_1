@@ -18,8 +18,9 @@ export const TodoScreen = () => {
 
     const [modal, setModal] = useState(false);
 
-    const saveHandler = (title) => {
-        updateTodo(todo.id, title);
+    // Use async-await for pretend bug of changing value after loading, now is correct: change value after loading
+    const saveHandler = async (title) => {
+        await updateTodo(todo.id, title);
         setModal(false);
     };
 
