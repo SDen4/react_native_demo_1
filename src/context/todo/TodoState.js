@@ -53,7 +53,7 @@ export const TodoState = ({ children }) => {
             const todos = Object.keys(data).map((key) => ({ ...data[key], id: key }));
             dispatch({ type: FETCH_TODOS, todos });
         } catch (e) {
-            showError("Something's wrong...");
+            // showError("Something's wrong...");
             console.log(e);
         } finally {
             hideLoader();
@@ -73,8 +73,12 @@ export const TodoState = ({ children }) => {
                 {
                     text: 'Delete',
                     style: 'destructive',
-                    onPress: () => {
+                    onPress: async () => {
                         changeScreen(null);
+                        await fetch(`https://react-native-todo-app-6842e-default-rtdb.firebaseio.com/todos/${id}.json`, {
+                            method: 'DELETE',
+                            headers: {'Content-Type': 'application/json'}
+                        });
                         dispatch({ type: REMOVE_TODO, id });
                     },
                 },
