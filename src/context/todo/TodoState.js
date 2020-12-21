@@ -39,6 +39,8 @@ export const TodoState = ({ children }) => {
     };
 
     const fetchTodos = async () => {
+        showLoader();
+
         const response = await fetch(
             'https://react-native-todo-app-6842e-default-rtdb.firebaseio.com/todos.json',
             {
@@ -47,9 +49,10 @@ export const TodoState = ({ children }) => {
             }
         );
         const data = await response.json();
-        console.log('Fetch', data);
         const todos = Object.keys(data).map(key => ({...data[key], id: key}));
         dispatch({type: FETCH_TODOS, todos});
+
+        hideLoader();
     };
 
     const removeTodo = (id) => {
