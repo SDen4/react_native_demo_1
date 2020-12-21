@@ -59,7 +59,7 @@ export const TodoState = ({ children }) => {
             showError('Something\'s wrong...');
             console.log(e);
         } finally {
-            hideLoader();sss
+            hideLoader();
         }
     };
 
