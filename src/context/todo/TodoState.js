@@ -40,19 +40,27 @@ export const TodoState = ({ children }) => {
 
     const fetchTodos = async () => {
         showLoader();
+        clearError();
 
-        const response = await fetch(
-            'https://react-native-todo-app-6842e-default-rtdb.firebaseio.com/todos.json',
-            {
-                method: 'GET',
-                headers: { 'Content-Type': 'application/json' },
-            }
-        );
-        const data = await response.json();
-        const todos = Object.keys(data).map(key => ({...data[key], id: key}));
-        dispatch({type: FETCH_TODOS, todos});
+        try {
 
-        hideLoader();
+            const response = await fetch(
+                'https://react-native-todo-app-6842e-default-rtdb.firebaseio.com/todos.json',
+                {
+                    method: 'GET',
+                    headers: { 'Content-Type': 'application/json' },
+                }
+            );
+            const data = await response.json();
+            const todos = Object.keys(data).map(key => ({...data[key], id: key}));
+            dispatch({type: FETCH_TODOS, todos});
+    
+        } catch (e) {
+            showError('Something\'s wrong...');
+            console.log(e);
+        } finally {
+            hideLoader();sss
+        }
     };
 
     const removeTodo = (id) => {
